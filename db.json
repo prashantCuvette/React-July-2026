@@ -1,3 +1,16 @@
 {
-    "users": []
+  "users": [
+    {
+      "id": "6c37",
+      "name": "admin",
+      "email": "test@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "8ce1",
+      "name": "admin",
+      "email": "test2@gmail.com",
+      "password": "123456"
+    }
+  ]
 }

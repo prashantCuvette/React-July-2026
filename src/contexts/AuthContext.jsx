@@ -66,13 +66,12 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         return { success: false, message: "User With Email Exists" };
       }
-
       const newUser = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: { name, email, password },
+        body: JSON.stringify({ name, email, password }),
       });
 
       if (newUser.ok) {

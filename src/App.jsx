@@ -1,20 +1,22 @@
-
-import Header from "./components/Header";
-import { useAuth } from "./contexts/AuthContext";
-
+import { Routes, Route } from "react-router";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./components/Home";
+import Task from "./components/Task";
 
 const App = () => {
-
-  
-  const context = useAuth();
-
-
-  console.log(context);
   return (
-    <div>
-      <Header />
-    </div>
-  )
-}
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
 
-export default App
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/task" element={<Task />} />
+      </Route>
+    </Routes>
+  );
+};
+
+export default App;
