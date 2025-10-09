@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import styles from "./SignUp.module.css";
 
 const SignUp = () => {
   const { signupUser } = useAuth();
@@ -22,10 +23,11 @@ const SignUp = () => {
   }
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Sign Up</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
+          className={styles.input}
           value={formData.username}
           onChange={(e) =>
             setFormData({ ...formData, username: e.target.value })
@@ -33,15 +35,19 @@ const SignUp = () => {
           type="text"
           name="username"
           id="username"
+          placeholder="Username"
         />
         <input
+          className={styles.input}
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           type="text"
           name="email"
           id="email"
+          placeholder="Email"
         />
         <input
+          className={styles.input}
           value={formData.password}
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
@@ -49,8 +55,9 @@ const SignUp = () => {
           type="password"
           name="password"
           id="password"
+          placeholder="Password"
         />
-        <button>Sign Up</button>
+        <button className={styles.button}>Sign Up</button>
       </form>
     </div>
   );

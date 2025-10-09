@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const { loginUser } = useAuth();
@@ -17,23 +18,26 @@ const Login = () => {
     const result = await loginUser(formData.email, formData.password);
     console.log(result); //result.success = true
 
-    if(result.success){
+    if (result.success) {
       navigate("/");
     }
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Login</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
+          className={styles.input}
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           type="text"
           name="email"
           id="email"
+          placeholder="Email"
         />
         <input
+          className={styles.input}
           value={formData.password}
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
@@ -41,8 +45,9 @@ const Login = () => {
           type="password"
           name="password"
           id="password"
+          placeholder="Password"
         />
-        <button>Login</button>
+        <button className={styles.button}>Login</button>
       </form>
     </div>
   );

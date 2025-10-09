@@ -12,5 +12,19 @@
       "email": "test2@gmail.com",
       "password": "123456"
     }
+  ],
+  "tasks": [
+    {
+      "id": "4319",
+      "title": "Task 1",
+      "description": "Desc 1",
+      "userId": "6c37"
+    },
+    {
+      "id": "4d2d",
+      "title": "task 2",
+      "description": "desc 2",
+      "userId": "6c37"
+    }
   ]
 }
