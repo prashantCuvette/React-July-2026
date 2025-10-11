@@ -5,12 +5,15 @@ import App from "./App.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { BrowserRouter } from "react-router";
 import { Toaster } from "react-hot-toast";
+import { TaskProvider } from "./contexts/Task.jsx";
 
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <Toaster />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <TaskProvider>
+      <Toaster />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </TaskProvider>
   </AuthProvider>
 );

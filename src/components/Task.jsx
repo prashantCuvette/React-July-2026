@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
 import TaskModal from "./AddTaskModal";
 import RenderTask from "./RenderTask";
 import styles from "./Task.module.css";
 import { useAuth } from "../contexts/AuthContext";
+import { useTask } from "../contexts/Task.jsx";
 
 const priorityLevels = [
   { value: "low", label: "Low", color: "#10b981" },
@@ -11,74 +11,24 @@ const priorityLevels = [
 ];
 
 const Task = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [tasks, setTasks] = useState([]);
-  const [editingTask, setEditingTask] = useState(null);
-  const [filterPriority, setFilterPriority] = useState("all");
-
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearchChange = (tasks) => {
-    const filtered = tasks.filter((task) =>
-      task.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    return filtered;
-  };
-
   const { user } = useAuth();
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
-
-  const loadTasks = () => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  };
-
-  const saveTasks = (newTasks) => {
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
-    setTasks(newTasks);
-  };
-
-  const handleSaveTask = (taskData) => {
-    if (editingTask) {
-      const updatedTasks = tasks.map((t) =>
-        t.id === editingTask.id
-          ? { ...t, ...taskData, updatedAt: new Date().toISOString() }
-          : t
-      );
-      saveTasks(updatedTasks);
-    } else {
-      saveTasks([...tasks, taskData]);
-    }
-    setShowModal(false);
-    setEditingTask(null);
-  };
-
-  const handleEditTask = (task) => {
-    setEditingTask(task);
-    setShowModal(true);
-  };
-
-  const handleDeleteTask = (taskId) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
-      const updatedTasks = tasks.filter((t) => t.id !== taskId);
-      saveTasks(updatedTasks);
-    }
-  };
-
-  const handleAddNew = () => {
-    setEditingTask(null);
-    setShowModal(true);
-  };
-
-  const filteredTasks =
-    filterPriority === "all"
-      ? tasks
-      : tasks.filter((t) => t.priority === filterPriority);
+  const {
+    tasks,
+    showModal,
+    setShowModal,
+    editingTask,
+    setEditingTask,
+    filterPriority,
+    setFilterPriority,
+    searchTerm,
+    setSearchTerm,
+    handleSaveTask,
+    handleEditTask,
+    handleDeleteTask,
+    handleAddNew,
+    handleSearchChange,
+    filteredTasks,
+  } = useTask();
 
   return (
     <div className={styles.container}>
@@ -116,6 +66,17 @@ const Task = () => {
               {tasks.filter((t) => t.priority === level.value).length})
             </button>
           ))}
+        </div>
+        <div>
+          <input
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            type="text"
+            name="search"
+            id="search"
+            className={styles.searchInput}
+            placeholder="Search tasks..."
+          />
         </div>
       </div>
 
@@ -159,16 +120,6 @@ const Task = () => {
             )}
           </div>
         )}
-      </div>
-
-      <div>
-        <input
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          type="text"
-          name="search"
-          id="search"
-        />
       </div>
     </div>
   );

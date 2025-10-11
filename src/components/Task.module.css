@@ -50,6 +50,8 @@
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
 }
 
 .filterLabel {
@@ -69,6 +71,18 @@
 .filterButton {
   padding: 8px 16px;
   border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  transition: all 0.2s;
+}
+
+.searchInput {
+  padding: 8px 16px;
+  border: 2px solid #2669c1;
   border-radius: 8px;
   background-color: white;
   cursor: pointer;
